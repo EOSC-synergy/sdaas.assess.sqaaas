@@ -1,0 +1,64 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/2.1.1
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/rizac/sdaas:
+      branch: master
+      repo: https://github.com/rizac/sdaas
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/rizac/sdaas git:
+        commands:
+        - /usr/bin/env sh .sqa/script.pokey-aquamarine-toucan.sh
+        container: qc.acc_stinky-purple-monkey
+  QC.Doc:
+    repos:
+      github.com/rizac/sdaas find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.squeaky-azure-macaw.sh
+        container: qc.doc_tasty-copper-dragon
+      github.com/rizac/sdaas git:
+        commands:
+        - /usr/bin/env sh .sqa/script.sleazy-mauve-schnauzer.sh
+        container: qc.doc_lousy-linen-javanese
+      github.com/rizac/sdaas markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.silly-chestnut-numbat.sh
+        container: qc.doc_thirsty-magnolia-dogfish
+  QC.Lic:
+    repos:
+      github.com/rizac/sdaas licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.sunny-myrtle-dragonfly.sh
+        container: qc.lic_randy-periwinkle-caterpillar
+  QC.Sec:
+    repos:
+      github.com/rizac/sdaas bandit:
+        commands:
+        - /usr/bin/env sh .sqa/script.muzzy-goldenrod-rabbit.sh
+        container: qc.sec_homely-magnolia-bombay
+  QC.Sty:
+    repos:
+      github.com/rizac/sdaas flake8:
+        commands:
+        - /usr/bin/env sh .sqa/script.muzzy-xanthic-termite.sh
+        container: qc.sty_queasy-emerald-gibbon
+  QC.Uni:
+    repos:
+      github.com/rizac/sdaas pytest:
+        commands:
+        - /usr/bin/env sh .sqa/script.woozy-vermilion-hamster.sh
+        container: qc.uni_frumpy-celadon-whale
+  QC.Ver:
+    repos:
+      github.com/rizac/sdaas get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.cranky-silver-crab.sh
+        container: qc.ver_flimsy-violet-duck
+timeout: 5400
